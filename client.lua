@@ -115,10 +115,10 @@ RegisterCommand(Config.Commands.playerReport, function()
 end)
 
 RegisterCommand(Config.Commands.staffDashboard, function()
-    if not HasPermission('viewReports') then
-        ShowNotification('No Permission', 'You do not have permission to access this.', 'error')
-        return
-    end
+    --if not HasPermission('viewReports') then
+    --    ShowNotification('No Permission', 'You do not have permission to access this.', 'error')
+    --    return
+    --end
     
     QBCore.Functions.TriggerCallback('rx_reports:server:getAllTickets', function(tickets)
         QBCore.Functions.TriggerCallback('rx_reports:server:getStaffStats', function(stats)

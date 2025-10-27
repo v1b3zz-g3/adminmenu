@@ -17,18 +17,18 @@ Config.Commands = {
 
 -- Permissions
 Config.Permissions = {
-    viewReports = {'admin', 'mod', 'support'},
-    claimReports = {'admin', 'mod', 'support'},
-    closeReports = {'admin', 'mod', 'support'},
-    deleteReports = {'admin'},
-    blockPlayers = {'admin', 'mod'},
-    viewNotes = {'admin', 'mod', 'support'},
-    addNotes = {'admin', 'mod', 'support'},
-    viewStats = {'admin', 'mod'},
-    staffChat = {'admin', 'mod', 'support'},
-    teleportActions = {'admin', 'mod'},
-    freezeActions = {'admin', 'mod'},
-    warnActions = {'admin', 'mod', 'support'}
+    viewReports = {'admin', 'mod', 'god'},
+    claimReports = {'admin', 'mod', 'god'},
+    closeReports = {'admin', 'mod', 'god'},
+    deleteReports = {'admin','god'},
+    blockPlayers = {'admin', 'mod','god'},
+    viewNotes = {'admin', 'mod', 'god'},
+    addNotes = {'admin', 'mod', 'god'},
+    viewStats = {'admin', 'mod','god'},
+    staffChat = {'admin', 'mod', 'god'},
+    teleportActions = {'admin', 'mod','god'},
+    freezeActions = {'admin', 'mod','god'},
+    warnActions = {'admin', 'mod', 'god'}
 }
 
 -- Report Priorities
