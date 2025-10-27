@@ -155,7 +155,7 @@ QBCore.Functions.CreateCallback('rx_reports:server:createTicket', function(sourc
                             reported_name = reportedName,
                             priority = data.priority or 'medium',
                             status = 'open',
-                            form_data = data.formData,
+                            form_data = formData,
                             created_at = os.time()
                         }
                         
@@ -204,14 +204,7 @@ QBCore.Functions.CreateCallback('rx_reports:server:getPlayerTickets', function(s
     
     MySQL.query('SELECT t.*, COUNT(m.id) as message_count FROM rx_tickets t LEFT JOIN rx_ticket_messages m ON t.id = m.ticket_id WHERE t.reporter_identifier = ? GROUP BY t.id ORDER BY t.created_at DESC', 
         {identifier}, function(result)
-        if result then
-            for i, ticket in ipairs(result) do
-                result[i].form_data = json.decode(ticket.form_data)
-            end
-            cb(result)
-        else
-            cb({})
-        end
+        cb(result or {})
     end)
 end)
 
@@ -220,14 +213,7 @@ QBCore.Functions.CreateCallback('rx_reports:server:getAllTickets', function(sour
     
     MySQL.query('SELECT t.*, COUNT(m.id) as message_count FROM rx_tickets t LEFT JOIN rx_ticket_messages m ON t.id = m.ticket_id GROUP BY t.id ORDER BY t.created_at DESC LIMIT 100', 
         {}, function(result)
-        if result then
-            for i, ticket in ipairs(result) do
-                result[i].form_data = json.decode(ticket.form_data)
-            end
-            cb(result)
-        else
-            cb({})
-        end
+        cb(result or {})
     end)
 end)
 
@@ -235,7 +221,6 @@ QBCore.Functions.CreateCallback('rx_reports:server:getTicketDetails', function(s
     MySQL.query('SELECT * FROM rx_tickets WHERE id = ?', {ticketId}, function(ticketResult)
         if ticketResult and ticketResult[1] then
             local ticket = ticketResult[1]
-            ticket.form_data = json.decode(ticket.form_data)
             
             -- Get messages
             MySQL.query('SELECT * FROM rx_ticket_messages WHERE ticket_id = ? ORDER BY created_at ASC', {ticketId}, function(messages)
@@ -268,7 +253,6 @@ QBCore.Functions.CreateCallback('rx_reports:server:claimTicket', function(source
             MySQL.query('SELECT * FROM rx_tickets WHERE id = ?', {ticketId}, function(result)
                 if result and result[1] then
                     local ticket = result[1]
-                    ticket.form_data = json.decode(ticket.form_data)
                     
                     -- Notify reporter
                     local reporterPlayer = GetPlayerByIdentifier(ticket.reporter_identifier)
@@ -321,7 +305,6 @@ QBCore.Functions.CreateCallback('rx_reports:server:unclaimTicket', function(sour
             MySQL.query('SELECT * FROM rx_tickets WHERE id = ?', {ticketId}, function(result)
                 if result and result[1] then
                     local ticket = result[1]
-                    ticket.form_data = json.decode(ticket.form_data)
                     
                     for _, player in pairs(QBCore.Functions.GetPlayers()) do
                         if HasPermission(player, 'viewReports') then
@@ -350,7 +333,6 @@ QBCore.Functions.CreateCallback('rx_reports:server:closeTicket', function(source
             MySQL.query('SELECT * FROM rx_tickets WHERE id = ?', {ticketId}, function(result)
                 if result and result[1] then
                     local ticket = result[1]
-                    ticket.form_data = json.decode(ticket.form_data)
                     
                     -- Update stats if claimed by this staff
                     if ticket.claimed_by == identifier then
@@ -412,7 +394,6 @@ QBCore.Functions.CreateCallback('rx_reports:server:reopenTicket', function(sourc
             MySQL.query('SELECT * FROM rx_tickets WHERE id = ?', {ticketId}, function(result)
                 if result and result[1] then
                     local ticket = result[1]
-                    ticket.form_data = json.decode(ticket.form_data)
                     
                     for _, player in pairs(QBCore.Functions.GetPlayers()) do
                         if HasPermission(player, 'viewReports') then
@@ -503,7 +484,7 @@ QBCore.Functions.CreateCallback('rx_reports:server:rateTicket', function(source,
             cb(false)
         end
     end)
-end)-- Continue server.lua
+end)
 
 QBCore.Functions.CreateCallback('rx_reports:server:blockPlayer', function(source, cb, playerId, reason, duration)
     if not HasPermission(source, 'blockPlayers') then cb(false) return end
@@ -706,7 +687,6 @@ RegisterNetEvent('rx_reports:server:executeAction', function(ticketId, action, t
     elseif action.id == 'warn_player' then
         if targetId then
             -- Integrate with your warning system here
-            -- Example: exports['warn_system']:WarnPlayer(targetId, reason)
         end
     elseif action.id == 'spectate' then
         if targetId then
@@ -715,7 +695,6 @@ RegisterNetEvent('rx_reports:server:executeAction', function(ticketId, action, t
     elseif action.id == 'check_inventory' then
         if targetId then
             -- Integrate with your inventory system here
-            -- Example: TriggerClientEvent('inventory:client:OpenInventory', source, targetId)
         end
     end
 end)
