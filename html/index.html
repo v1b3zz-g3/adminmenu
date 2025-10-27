@@ -19,4 +19,330 @@
                 </div>
                 
                 <nav class="sidebar-nav" id="sidebarNav">
-                    <!-- Dynamic navigation items
+                    <!-- Dynamic navigation items -->
+                </nav>
+                
+                <div class="sidebar-footer">
+                    <button class="btn-icon" id="themeToggle" title="Toggle Theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="btn-icon" id="closeBtn" title="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </aside>
+            
+            <!-- Main Content Area -->
+            <main class="main-content">
+                <!-- Player View: Submit Report -->
+                <section id="submitReportView" class="view hidden">
+                    <div class="view-header">
+                        <h2>Submit a Report</h2>
+                        <p>Choose a category to get started</p>
+                    </div>
+                    
+                    <div class="form-categories" id="formCategories">
+                        <!-- Dynamic form cards -->
+                    </div>
+                    
+                    <!-- Report Form Modal -->
+                    <div id="reportFormModal" class="modal hidden">
+                        <div class="modal-content large">
+                            <div class="modal-header">
+                                <h3 id="formTitle">Submit Report</h3>
+                                <button class="btn-close" onclick="closeModal('reportFormModal')">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="reportForm">
+                                    <div id="formFields"></div>
+                                    
+                                    <div class="form-group">
+                                        <label>Priority Level</label>
+                                        <select id="prioritySelect" class="form-control" required>
+                                            <!-- Dynamic priorities -->
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" onclick="closeModal('reportFormModal')">Cancel</button>
+                                <button class="btn btn-primary" id="submitReportBtn">Submit Report</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Player View: My Reports -->
+                <section id="myReportsView" class="view hidden">
+                    <div class="view-header">
+                        <h2>My Reports</h2>
+                        <div class="header-actions">
+                            <button class="btn btn-primary" onclick="showView('submitReportView')">
+                                <i class="fas fa-plus"></i> New Report
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="filters">
+                        <input type="text" id="myReportsSearch" class="search-input" placeholder="Search my reports...">
+                        <select id="myReportsStatusFilter" class="filter-select">
+                            <option value="">All Status</option>
+                            <option value="open">Open</option>
+                            <option value="claimed">Claimed</option>
+                            <option value="pending">Pending</option>
+                            <option value="closed">Closed</option>
+                        </select>
+                    </div>
+                    
+                    <div id="myReportsList" class="tickets-list">
+                        <!-- Dynamic ticket cards -->
+                    </div>
+                </section>
+                
+                <!-- Staff View: Dashboard -->
+                <section id="staffDashboardView" class="view hidden">
+                    <div class="view-header">
+                        <h2>Staff Dashboard</h2>
+                        <div class="stats-row" id="dashboardStats">
+                            <!-- Dynamic stats cards -->
+                        </div>
+                    </div>
+                    
+                    <div class="filters">
+                        <input type="text" id="staffSearch" class="search-input" placeholder="Search tickets...">
+                        <select id="staffStatusFilter" class="filter-select">
+                            <option value="">All Status</option>
+                            <option value="open">Open</option>
+                            <option value="claimed">Claimed</option>
+                            <option value="pending">Pending</option>
+                            <option value="closed">Closed</option>
+                        </select>
+                        <select id="staffPriorityFilter" class="filter-select">
+                            <option value="">All Priorities</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                            <option value="critical">Critical</option>
+                        </select>
+                        <button class="btn btn-icon" id="refreshTickets" title="Refresh">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                    
+                    <div id="staffTicketsList" class="tickets-table-container">
+                        <table class="tickets-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Priority</th>
+                                    <th>Reporter</th>
+                                    <th>Category</th>
+                                    <th>Status</th>
+                                    <th>Claimed By</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ticketsTableBody">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <!-- Staff View: Player Notes -->
+                <section id="playerNotesView" class="view hidden">
+                    <div class="view-header">
+                        <h2>Player Notes</h2>
+                        <div class="header-actions">
+                            <input type="text" id="notesPlayerSearch" class="search-input" placeholder="Search player...">
+                            <button class="btn btn-primary" id="addNoteBtn">
+                                <i class="fas fa-plus"></i> Add Note
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="playerNotesList" class="notes-list">
+                        <!-- Dynamic notes -->
+                    </div>
+                </section>
+                
+                <!-- Staff View: Statistics -->
+                <section id="statisticsView" class="view hidden">
+                    <div class="view-header">
+                        <h2>Staff Statistics</h2>
+                    </div>
+                    
+                    <div class="stats-grid" id="staffStatsGrid">
+                        <!-- Dynamic staff stats -->
+                    </div>
+                </section>
+                
+                <!-- Staff View: Staff Chat -->
+                <section id="staffChatView" class="view hidden">
+                    <div class="view-header">
+                        <h2>Staff Chat</h2>
+                    </div>
+                    
+                    <div class="chat-container">
+                        <div class="chat-messages" id="staffChatMessages">
+                            <!-- Dynamic messages -->
+                        </div>
+                        <div class="chat-input-container">
+                            <input type="text" id="staffChatInput" class="chat-input" placeholder="Type a message...">
+                            <button class="btn btn-primary" id="sendStaffMessage">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+        
+        <!-- Ticket Details Modal -->
+        <div id="ticketDetailsModal" class="modal hidden">
+            <div class="modal-content extra-large">
+                <div class="modal-header">
+                    <div>
+                        <h3 id="ticketDetailsTitle">Ticket Details</h3>
+                        <span id="ticketDetailsNumber" class="ticket-number"></span>
+                    </div>
+                    <button class="btn-close" onclick="closeModal('ticketDetailsModal')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="ticket-details-layout">
+                        <!-- Left: Ticket Info -->
+                        <div class="ticket-info">
+                            <div class="info-section">
+                                <h4>Report Information</h4>
+                                <div id="ticketInfoContent"></div>
+                            </div>
+                            
+                            <div class="info-section" id="ticketActionsSection">
+                                <h4>Actions</h4>
+                                <div id="ticketActionsButtons" class="action-buttons"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Right: Chat -->
+                        <div class="ticket-chat">
+                            <div class="chat-header">
+                                <h4>Conversation</h4>
+                                <span id="messageCount">0 messages</span>
+                            </div>
+                            <div class="chat-messages" id="ticketChatMessages"></div>
+                            <div class="chat-input-area">
+                                <div class="quick-responses" id="quickResponsesContainer"></div>
+                                <div class="chat-input-container">
+                                    <textarea id="ticketChatInput" class="chat-input" placeholder="Type your message..." rows="3"></textarea>
+                                    <button class="btn btn-primary" id="sendTicketMessage">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" id="ticketDetailsFooter">
+                    <!-- Dynamic footer buttons -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rating Modal -->
+        <div id="ratingModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Rate Your Experience</h3>
+                    <button class="btn-close" onclick="closeModal('ratingModal')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>How would you rate the support you received?</p>
+                    <div class="rating-stars" id="ratingStars">
+                        <i class="fas fa-star" data-rating="1"></i>
+                        <i class="fas fa-star" data-rating="2"></i>
+                        <i class="fas fa-star" data-rating="3"></i>
+                        <i class="fas fa-star" data-rating="4"></i>
+                        <i class="fas fa-star" data-rating="5"></i>
+                    </div>
+                    <textarea id="ratingComment" class="form-control" placeholder="Additional comments (optional)" rows="3"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeModal('ratingModal')">Skip</button>
+                    <button class="btn btn-primary" id="submitRatingBtn">Submit Rating</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Add Note Modal -->
+        <div id="addNoteModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add Player Note</h3>
+                    <button class="btn-close" onclick="closeModal('addNoteModal')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Player ID</label>
+                        <input type="text" id="notePlayerId" class="form-control" placeholder="Enter player ID">
+                    </div>
+                    <div class="form-group">
+                        <label>Note</label>
+                        <textarea id="noteContent" class="form-control" placeholder="Enter note..." rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeModal('addNoteModal')">Cancel</button>
+                    <button class="btn btn-primary" id="submitNoteBtn">Add Note</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Block Player Modal -->
+        <div id="blockPlayerModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Block Player</h3>
+                    <button class="btn-close" onclick="closeModal('blockPlayerModal')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Reason</label>
+                        <select id="blockReason" class="form-control" required>
+                            <option value="">Select reason...</option>
+                            <option value="Spam Reports">Spam Reports</option>
+                            <option value="False Reports">False Reports</option>
+                            <option value="Abuse of System">Abuse of System</option>
+                            <option value="Toxic Behavior">Toxic Behavior</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Duration (days, 0 for permanent)</label>
+                        <input type="number" id="blockDuration" class="form-control" min="0" max="30" value="7" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeModal('blockPlayerModal')">Cancel</button>
+                    <button class="btn btn-danger" id="confirmBlockBtn">Block Player</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Toast Notifications -->
+        <div id="toastContainer" class="toast-container"></div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
