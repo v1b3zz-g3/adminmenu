@@ -693,7 +693,9 @@ select.form-control {
 .text-right { text-align: right; }
 .mb-16 { margin-bottom: 16px; }
 .mt-16 { margin-top: 16px; }
-.hidden { display: none !important; }-items: center;
+.hidden { display: none !important; }
+.modal {
+    align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(8px);
@@ -1168,4 +1170,8 @@ select.form-control {
     height: 100%;
     background: rgba(0, 0, 0, 0.75);
     display: flex;
-    align
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.2s ease;
+    }
